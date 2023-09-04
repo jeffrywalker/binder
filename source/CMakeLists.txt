@@ -60,6 +60,7 @@ if(USE_EXTERNAL_LLVM)
      endif()
   endif()
   add_definitions(${LLVM_DEFINITIONS})
+  set(CMAKE_CXX_STANDARD 17) # crossplatform <filesystem>
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${LLVM_COMPILE_FLAGS}")
   list(REMOVE_ITEM CMAKE_CXX_FLAGS "-fno-exceptions")
   string (REPLACE "-fno-exceptions" ""     CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})

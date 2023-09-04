@@ -14,6 +14,7 @@
 #define _INCLUDED_function_hpp_
 
 #include <binder.hpp>
+#include <config.hpp> // adding so the definition of uint is available
 
 #include <clang/AST/Decl.h>
 #include <clang/AST/DeclCXX.h>

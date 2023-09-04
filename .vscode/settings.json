@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.i": "plaintext",
+        "string": "cpp",
+        "filesystem": "cpp"
+    }
+}

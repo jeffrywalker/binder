@@ -7,16 +7,15 @@ grep -rh "#include" include/* | sort -u > all_bash_includes.hpp
 rm -rf ./bash_bindings/ && mkdir bash_bindings/
  # Make bindings code
 $PWD/../../build/llvm-*/llvm-*debug/bin/binder \
-  --root-module test_struct \
+  --root-module test_class \
   --prefix $PWD/bash_bindings/ \
-  --bind testers --config config.cfg \
+  --bind testers \
   all_bash_includes.hpp \
+  --trace -v \
   -- -I$PWD/include \
   -DNDEBUG
 
-echo "now use CMake to build python library"
-exit 0 # using CMake to build
-
+exit 0
 # compile first generated bindings
 # NOTE 'pybase' may need to change on your system
 cd bash_bindings

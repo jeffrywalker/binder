@@ -23,6 +23,7 @@
 #include <clang/Basic/SourceManager.h>
 
 //#include <experimental/filesystem>
+#include <filesystem>
 #include <cctype>
 #include <cstdlib>
 #include <fstream>
@@ -134,10 +135,25 @@ void update_source_file(std::string const &prefix, std::string const &file_name,
 	for( auto &d : dirs ) path += "/" + d;
 
 	// std::experimental::filesystem::create_directories(path);
-	string command_line = "mkdir -p " + path;
-	system(command_line.c_str());
+    if (!std::filesystem::create_directory(path))
+    {
+		throw std::runtime_error("ERROR: failed to create directory: " + path );
+    }
+    // Fails on Windows
+	// string command_line = "mkdir -p " + path;
+	// system(command_line.c_str());
 
-	string full_file_name = prefix + '/' + file_name;
+    string full_file_name = prefix;
+    if (full_file_name.back() != '/')
+    {
+        full_file_name += '/' + file_name;
+    }
+    else 
+    {
+        full_file_name += file_name;
+    }
+	// string full_file_name = prefix + '/' + file_name;
+
 	std::ifstream f(full_file_name);
 	std::string old_code((std::istreambuf_iterator<char>(f)), std::istreambuf_iterator<char>());
 
